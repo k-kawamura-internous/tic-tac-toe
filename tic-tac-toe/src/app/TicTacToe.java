@@ -1,12 +1,10 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToe extends Board{
-	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private Scanner sc = new Scanner(System.in);
 
 	public TicTacToe() {
 		// ボードを初期化する
@@ -44,20 +42,16 @@ public class TicTacToe extends Board{
 			}
 		}
 
-		if (reader != null) {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				System.out.println("リソースの開放に失敗しました");
-			}
+		// ゲームが終わったのでリソースを開放する
+		if (sc != null) {
+			sc.close();
 		}
 
 		System.out.println("ゲーム終了");
 		finalJudge(result);
 	}
 
-
-
+	// ボードのマス目を選択
 	private int selectNo(String playerMark) {
 		int no = -1;
 		if(USER_MARK.equals(playerMark)) {
@@ -108,14 +102,11 @@ public class TicTacToe extends Board{
 		return no;
 	}
 
+	//
 	private String inputNo() {
 		String line = null;
 		while (line == null) {
-			try {
-				line = reader.readLine();
-			} catch (IOException e) {
-				System.out.println("入力の読み取りに失敗しました");
-			}
+			line = sc.nextLine();
 		}
 		return line;
 	}
