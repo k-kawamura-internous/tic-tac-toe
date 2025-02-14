@@ -61,22 +61,23 @@ public class TicTacToe extends Board{
 		}
 		return no;
 	}
-	
+
+	// ボードのマス目を選択(ユーザー)
 	private int selectNoForUser() {
 		// マス目を出力
 		printBoard();
 		System.out.println("1～9のマスのうち、空いているマスの番号を選び、入力してください");
-		String line = null;
+
 		int no = -1;
 		boolean isCorrectNo = false;
 		while (!isCorrectNo) {
-			line = inputNo();
-			boolean isNumeric = checkNo(line);
+			no = inputNo();
+			boolean isNumeric = checkNo(no);
 			if (!isNumeric) {
-				System.out.println("1～9の数字で指定してください");
+				System.out.println("指定範囲外の数値です");
 				continue;
 			}
-			no = Integer.parseInt(line) - 1;
+			no = no - 1;
 			if(checkAlreadySelected(no)) {
 				System.out.println("既に選択されています,別の数字を選択してください");
 				continue;
@@ -86,6 +87,7 @@ public class TicTacToe extends Board{
 		return no;
 	}
 
+	// ボードのマス目を選択(COM)
 	private int selectNoForCOM() {
 		int no = -1;
 
@@ -102,18 +104,28 @@ public class TicTacToe extends Board{
 		return no;
 	}
 
-	//
-	private String inputNo() {
-		String line = null;
-		while (line == null) {
-			line = sc.nextLine();
+	// 番号を入力する
+	int inputNo() {
+		int no = -1;
+		while (true) {
+			System.out.print("1から9の数字を入力してください: ");
+
+			// ユーザーの入力を受け取る
+			if (sc.hasNextInt()) {  // 数字が入力されたかチェック
+				no = sc.nextInt();
+				break;
+			} else {
+				// 数字以外の入力があった場合
+				System.out.println("無効な入力です");
+				sc.next(); // 不正な入力を読み飛ばす
+			}
 		}
-		return line;
+		return no;
 	}
 
 	// 1～9の数字が入力されているかをチェック
-	private boolean checkNo(String line) {
-		return "123456789".contains(line);
+	private boolean checkNo(int no) {
+		return 1 <= no && no <= 9;
 	}
 
 	// COMとユーザーのターン
@@ -123,7 +135,7 @@ public class TicTacToe extends Board{
 		} else {
 			System.out.println("ユーザーのターン");
 		}
-		
+
 		// マスを選択する
 		int no = selectNo(playerMark);
 		// マスにマークを入力
@@ -149,7 +161,7 @@ public class TicTacToe extends Board{
 					&& board[pattern[2] / 3][pattern[2] % 3].equals(USER_MARK)) {
 				return USER_MARK;
 			}
-			
+
 			// COMが勝利したか確認
 			if (board[pattern[0] / 3][pattern[0] % 3].equals(COM_MARK)
 					&& board[pattern[1] / 3][pattern[1] % 3].equals(COM_MARK)
