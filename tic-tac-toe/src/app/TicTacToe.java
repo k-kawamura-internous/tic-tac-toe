@@ -69,20 +69,22 @@ public class TicTacToe extends Board{
 		System.out.println("1～9のマスのうち、空いているマスの番号を選び、入力してください");
 
 		int no = -1;
-		boolean isCorrectNo = false;
-		while (!isCorrectNo) {
+		while (true) {
+			// 数字を入力する
 			no = inputNo();
-			boolean isNumeric = checkNo(no);
-			if (!isNumeric) {
+			// 1～9までの数値が入力されているか確認
+			if (!checkNo(no)) {
 				System.out.println("指定範囲外の数値です");
 				continue;
 			}
+			// 配列の要素番号にするために-1する
 			no = no - 1;
+			// 入力された数字がすでに選択されているマス目かを確認
 			if(checkAlreadySelected(no)) {
 				System.out.println("既に選択されています,別の数字を選択してください");
 				continue;
 			}
-			isCorrectNo = true;
+			break;
 		}
 		return no;
 	}
