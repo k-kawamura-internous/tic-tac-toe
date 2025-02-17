@@ -1,7 +1,8 @@
 package app;
 
 public class Board {
-	protected String[][] board = new String[3][3];// そろうパターン
+	protected String[][] board = new String[3][3];
+	// そろうパターン
 	protected static final int[][] COMPLETE_PATTERNS = {
 			{0, 3, 6}, // 1列目 (1)
 			{1, 4, 7}, // 2列目 (2)
@@ -17,8 +18,9 @@ public class Board {
 	
 	// マスがすでに選択されているかをチェック
 	protected boolean checkAlreadySelected(int no) {
-		if(board[no / 3][no % 3].equals(USER_MARK) 
-				|| board[no / 3][no % 3].equals(COM_MARK) ) {
+		String square = board[no / 3][no % 3];
+		if(USER_MARK.equals(square) 
+				|| COM_MARK.equals(square)) {
 			return true;
 		}
 		return false;
@@ -40,6 +42,7 @@ public class Board {
 		}
 	}
 	
+	// 盤面用の線を表示する
 	private String createLine() {
 		String line = "+";
 		for(int i = 0; i < 3; i++) {
@@ -60,7 +63,7 @@ public class Board {
 	protected boolean isBoardFull() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (!board[i][j].equals(USER_MARK) && !board[i][j].equals(COM_MARK)) {
+				if (!USER_MARK.equals(board[i][j]) && !COM_MARK.equals(board[i][j])) {
 					return false;
 				}
 			}

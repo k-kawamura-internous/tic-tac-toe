@@ -94,8 +94,10 @@ public class TicTacToe extends Board{
 		boolean isCorrectNo = false;
 		Random rand = new Random();
 		while (!isCorrectNo) {
+			// 1～9の数字をランダムで選択
 			no = rand.nextInt(9);
 
+			// 既に選択されたマス目の場合はcontinueする
 			if(checkAlreadySelected(no)) {
 				continue;
 			}
@@ -130,16 +132,18 @@ public class TicTacToe extends Board{
 
 	// COMとユーザーのターン
 	private void playTurn(String playerMark) {
-		if (COM_MARK.equals(playerMark)) {
-			System.out.print("COMのターン...");
-		} else {
+		if (USER_MARK.equals(playerMark)) {
 			System.out.println("ユーザーのターン");
+		} else {
+			System.out.print("COMのターン...");
 		}
 
 		// マスを選択する
 		int no = selectNo(playerMark);
 		// マスにマークを入力
 		makeMove(playerMark, no);
+		
+		// プレイヤーCOMの場合
 		if (COM_MARK.equals(playerMark)) {
 			// 考えている風にするため1.5秒ストップする
 			try {
@@ -149,28 +153,32 @@ public class TicTacToe extends Board{
 			}
 			System.out.println("完了");
 		}
-
 	}
 
 	// ゲームに決着がついたか確認する
 	private String check() {
 		for (int[] pattern : COMPLETE_PATTERNS) {
+			// それぞれのマス目の値を取得する
+			String square1 = board[pattern[0] / 3][pattern[0] % 3];
+			String square2 = board[pattern[1] / 3][pattern[1] % 3];
+			String square3 = board[pattern[2] / 3][pattern[2] % 3];
+			
 			// ユーザーが勝利したか確認
-			if (board[pattern[0] / 3][pattern[0] % 3].equals(USER_MARK)
-					&& board[pattern[1] / 3][pattern[1] % 3].equals(USER_MARK)
-					&& board[pattern[2] / 3][pattern[2] % 3].equals(USER_MARK)) {
+			if (USER_MARK.equals(square1)
+					&& USER_MARK.equals(square2)
+					&& USER_MARK.equals(square3)) {
 				return USER_MARK;
 			}
 
 			// COMが勝利したか確認
-			if (board[pattern[0] / 3][pattern[0] % 3].equals(COM_MARK)
-					&& board[pattern[1] / 3][pattern[1] % 3].equals(COM_MARK)
-					&& board[pattern[2] / 3][pattern[2] % 3].equals(COM_MARK)) {
+			if (COM_MARK.equals(square1)
+					&& COM_MARK.equals(square2)
+					&& COM_MARK.equals(square3)) {
 				return COM_MARK;
 			}
 		}
 
-		// 引き分け
+		// 引き分けか確認
 		if (isBoardFull()) {
 			return "-";
 		}
@@ -182,15 +190,17 @@ public class TicTacToe extends Board{
 		return !result.equals("");
 	}
 
+	// 最終結果を表示する
 	private void finalJudge(String result)	 {
-		// ゲーム結果を出力する
+		// ゲーム盤面を出力する
 		printBoard();
+		// ゲームの勝敗を出力する
 		if(USER_MARK.equals(result)) {
 			System.out.println("ユーザーの勝利");
 		} else if(COM_MARK.equals(result)) {
 			System.out.println("COMの勝利");
 		} else {
-			System.out.println("引き分けです");
+			System.out.println("引き分け");
 		}
 
 	}
