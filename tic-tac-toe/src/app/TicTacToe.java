@@ -64,9 +64,9 @@ public class TicTacToe extends Board{
 
 	// ボードのマス目を選択(ユーザー)
 	private int selectNoForUser() {
+		System.out.println("1～9のマスのうち、空いているマスの番号を選び、入力してください");
 		// マス目を出力
 		printBoard();
-		System.out.println("1～9のマスのうち、空いているマスの番号を選び、入力してください");
 
 		int no = -1;
 		while (true) {
@@ -108,7 +108,7 @@ public class TicTacToe extends Board{
 		return no;
 	}
 
-	// 番号を入力する
+	// ユーザーが入力する数値を受け取る
 	int inputNo() {
 		int no = -1;
 		while (true) {
@@ -132,7 +132,7 @@ public class TicTacToe extends Board{
 		return 1 <= no && no <= 9;
 	}
 
-	// COMとユーザーのターン
+	// ユーザーまたはコンピュータのターンを処理
 	private void playTurn(String playerMark) {
 		if (USER_MARK.equals(playerMark)) {
 			System.out.println("ユーザーのターン");
@@ -157,7 +157,7 @@ public class TicTacToe extends Board{
 		}
 	}
 
-	// ゲームに決着がついたか確認する
+	// 勝敗または引き分けかどうかをチェック
 	private String check() {
 		for (int[] pattern : COMPLETE_PATTERNS) {
 			// それぞれのマス目の値を取得する

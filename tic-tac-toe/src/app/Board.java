@@ -1,8 +1,9 @@
 package app;
 
 public class Board {
+	// 3x3のボードを表す2次元配列
 	protected String[][] board = new String[3][3];
-	// そろうパターン
+	// 勝利条件となるマス目のパターンを保持する配列
 	protected static final int[][] COMPLETE_PATTERNS = {
 			{0, 3, 6}, // 1列目 (1)
 			{1, 4, 7}, // 2列目 (2)
@@ -13,7 +14,9 @@ public class Board {
 			{0, 4, 8}, // 斜め：左上から右下 (7)
 			{2, 4, 6}  // 斜め：右上から左下 (8)
 	};
+	// ユーザーのマーク「O」
 	protected static final String USER_MARK = "O";
+	// コンピュータのマーク「X」
 	protected static final String COM_MARK = "X";
 	
 	// マスがすでに選択されているかをチェック
@@ -26,7 +29,7 @@ public class Board {
 		return false;
 	}
 	
-	// 盤面を出力する
+	// 現在のボードの状態を出力
 	protected void printBoard() {
 		// 表の出力
 		System.out.println(createLine());
@@ -54,12 +57,12 @@ public class Board {
 		return line;
 	}
 	
-	// マス目にマークを記入する
+	// 指定したマス目にプレイヤーのマークを配置
 	protected void makeMove(String playerMark, int no){
 		board[no / 3][no % 3] = playerMark;
 	}
 	
-	// 盤面が満杯かどうかをチェック
+	// ボードが満杯かどうかをチェック
 	protected boolean isBoardFull() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
